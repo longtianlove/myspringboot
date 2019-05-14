@@ -1,0 +1,98 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>test_group_id</groupId>
+	<artifactId>test_artifact_id</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>test_artifact_id</name>
+	<url>http://maven.apache.org</url>
+
+
+
+	<!-- 公共spring-boot配置，下面依赖jar文件不用在写版本号 -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<!-- 自动包含以下信息： -->
+		<!-- 1.使用Java6编译级别 -->
+		<!-- 2.使UTF-8编码 -->
+		<!-- 3.实现了通用的测试框架 (JUnit, Hamcrest, Mockito). -->
+		<!-- 4.智能资源过滤 -->
+		<!-- 5.智能的插件配置(exec plugin, surefire, Git commit ID, shade). -->
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<!-- spring boot 1.x最后稳定版本 -->
+		<version>1.4.1.RELEASE</version>
+		<!-- 表示父模块pom的相对路径，这里没有值 -->
+		<relativePath />
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+	</properties>
+
+	<dependencies>
+		<!-- web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- 测试 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<!-- 只在test测试里面运行 -->
+			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>spring-boot-hello-world</finalName>
+		<defaultGoal>compile</defaultGoal>
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<fork>true</fork>
+					<executable>
+						C:\Program Files\Java\jdk1.8.0_201\bin\javac.exe
+					</executable>
+				</configuration>
+			</plugin>
+
+
+			<!--解决SpringBoot打包成jar后运行提示没有主清单属性 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+
+				<configuration>
+					<mainClass>com.demo.Application</mainClass>
+				</configuration>
+			
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
